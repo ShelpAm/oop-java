@@ -27,7 +27,11 @@ public class Main {
   }
 
   private static void shuffle() {
-    String[] cards = {"红桃A","红桃2","红桃3","红桃4","红桃5","红桃6","红桃7","红桃8","红桃9","红桃10","红桃J","红桃Q","红桃K", "黑桃A","黑桃2","黑桃3","黑桃4","黑桃5","黑桃6","黑桃7","黑桃8", "黑桃9","黑桃10","黑桃J","黑桃Q","黑桃K", "梅花A","梅花2","梅花3","梅花4","梅花5","梅花6","梅花7", "梅花8","梅花9","梅花10","梅花J","梅花Q","梅花K","方片A","方片2","方片3","方片4","方片5","方片6", "方片7","方片8","方片9","方片10","方片J","方片Q","方片K","大王","小王"};
+    String[] cards = {"红桃A","红桃2","红桃3","红桃4","红桃5","红桃6","红桃7","红桃8","红桃9",
+      "红桃10","红桃J","红桃Q","红桃K", "黑桃A","黑桃2","黑桃3","黑桃4","黑桃5","黑桃6","黑桃7",
+      "黑桃8", "黑桃9","黑桃10","黑桃J","黑桃Q","黑桃K", "梅花A","梅花2","梅花3","梅花4","梅花5",
+      "梅花6","梅花7", "梅花8","梅花9","梅花10","梅花J","梅花Q","梅花K","方片A","方片2","方片3",
+      "方片4","方片5","方片6", "方片7","方片8","方片9","方片10","方片J","方片Q","方片K","大王","小王"};
 
     System.out.println("Before shuffling: " + Arrays.toString(cards));
 
@@ -66,7 +70,7 @@ public class Main {
         String name = names[i];
         Matcher matcher = patterns[i].matcher(s);
 
-        System.out.println(names[i]);
+        System.out.println(name);
         while (matcher.find()) {
           System.out.print(matcher.group() + " "); // I don't add the results to
           // an array because I have extract the common structure for extract

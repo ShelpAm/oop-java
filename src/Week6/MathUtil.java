@@ -9,14 +9,24 @@ public class MathUtil {
   public MathUtil() {
     Random rand = new Random();
 
-    final int n = rand.nextInt(10);
+    final int n = rand.nextInt(9) + 1;
     a = new int[n][];
 
+    System.out.println("The first dimension of a is " + n + ".");
+
     for (int i = 0; i != n; ++i) {
-      final int m = rand.nextInt(10);
+      int m;
+      boolean any;
+      do {
+        any = false;
+        m = rand.nextInt(9) + 1;
+        for (int j = 0; j != i; ++j) {
+          any |= m == a[j].length;
+        }
+      } while (any);
       a[i] = new int[m];
-      for (int j = 0; j != m; ++j) {
-        a[i][j] = rand.nextInt(10);
+      for (int j = 0; j != a[i].length; ++j) {
+        a[i][j] = rand.nextInt(9) + 1;
       }
     }
   }
