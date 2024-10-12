@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class Main {
+
   private static void traverse() {
     int[][] a = {{1,2},{2,3,4},{6},{7,8,9}};
 
@@ -56,9 +57,9 @@ public class Main {
   }
 
   private static void extractOperandsAndOperators() {
-    String[] data = {"1.2 +3.4*(5.6-7.8/9)", "-1.2 +3.4*(5.6-7.8/9)"};
+    String[] data = {"1.2 +3.4*(5.6-7.8/9)", "-1.2 +3.4*(5.6-7.8/9)", "1.2.3 + 5"};
 
-    Pattern operandsPattern = Pattern.compile("(^-)?\\d+\\.?\\d?");
+    Pattern operandsPattern = Pattern.compile("(^-)?\\d+\\.?\\d*");
     Pattern operatorsPattern = Pattern.compile("[\\+\\-\\*/\\(\\)]");
 
     String[] names = { "operands", "operators" };
@@ -89,5 +90,7 @@ public class Main {
     showMath();
 
     extractOperandsAndOperators();
+    // 1
   }
+
 }

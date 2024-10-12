@@ -6,7 +6,11 @@ if [ $# -ne 1 ]; then
 fi
 
 # -d specifies output dir
-javac -d bin src/*.java ./src/DataStructureAndAlgorithm/*.java src/$1/*.java
+error=$(javac -d bin src/*.java ./src/DataStructureAndAlgorithm/*.java src/$1/*.java 2>&1 | grep error)
+if [[ -n $error ]] then
+  echo Compilation failed. Running is stopped.
+  exit 1
+fi
 
 # -cp specifies [c]lass [p]ath
 java -cp bin Main
