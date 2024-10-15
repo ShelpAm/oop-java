@@ -6,7 +6,8 @@ if [ $# -ne 1 ]; then
 fi
 
 # -d specifies output dir
-error=$(javac -d bin src/*.java ./src/DataStructureAndAlgorithm/*.java src/$1/*.java 2>&1 | grep error)
+report=$(javac -d bin src/*.java ./src/DataStructureAndAlgorithm/*.java src/$1/*.java 2>&1 | tee /dev/stderr)
+error=$(echo $report | grep error)
 if [[ -n $error ]] then
   echo Compilation failed. Running is stopped.
   exit 1
