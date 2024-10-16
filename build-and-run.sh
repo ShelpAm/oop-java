@@ -14,5 +14,5 @@ if [[ -n $error ]] then
   exit 1
 fi
 
-java -ea --class-path bin shelpam.$1.Main
+java -enableassertions --class-path bin shelpam.$1.Main
 
