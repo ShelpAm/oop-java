@@ -1,3 +1,5 @@
+package shelpam.week6;
+
 import java.util.Arrays;
 import java.util.Random;
 import java.util.regex.Pattern;
