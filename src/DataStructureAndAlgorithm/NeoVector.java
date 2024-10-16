@@ -1,9 +1,9 @@
 public class NeoVector<T> {
-  private T[] data;
+  private Object[] data;
   private int size;
 
   public NeoVector() {
-    data = (T[]) new Object[0];
+    data = new Object[0];
   }
 
   public boolean empty() {
@@ -23,7 +23,7 @@ public class NeoVector<T> {
       return;
     }
 
-    T[] neoData = (T[]) new Object[capacity];
+    Object[] neoData = new Object[capacity];
     for (int i = 0; i != size; ++i) {
       neoData[i] = this.data[i];
     }
@@ -42,16 +42,18 @@ public class NeoVector<T> {
     --size;
   }
 
+  @SuppressWarnings("unchecked")
   public T at(int index) {
-    return this.data[index];
+    return (T)this.data[index];
   }
 
   public void setAt(int index, T t) {
     this.data[index] = t;
   }
 
+  @SuppressWarnings("unchecked")
   public T back() {
-    return this.data[size - 1];
+    return (T)this.data[size - 1];
   }
 }
 
