@@ -35,7 +35,6 @@ public class Rectangle {
     return new Rectangle(a, b);
   }
 
-
   private Rectangle(double a) {
     this.a = this.b = a;
   } 
