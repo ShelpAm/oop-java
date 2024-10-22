@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 if [ $# -ne 1 ]; then
-  echo 'Usage: run.sh week<week-number>'
+  echo 'Usage: build-and-run.sh week<week-number>'
   exit 1
 fi
 
