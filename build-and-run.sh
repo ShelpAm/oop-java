@@ -6,7 +6,8 @@ if [ $# -ne 1 ]; then
 fi
 
 # -d specifies output dir
-report=$(javac -Xlint:unchecked -d bin src/*.java ./src/DataStructureAndAlgorithm/*.java \
+report=$(javac -Xlint:unchecked -d bin src/*.java \
+  ./src/DataStructureAndAlgorithm/*.java \
   src/*/*.java 2>&1 | tee /dev/stderr)
 error=$(echo $report | grep error)
 if [[ -n $error ]] then
