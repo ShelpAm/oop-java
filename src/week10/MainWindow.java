@@ -1,10 +1,14 @@
 package shelpam.week10;
 
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -13,7 +17,7 @@ public class MainWindow extends JFrame {
     private JTextField lhs = new JTextField();
     private JTextField rhs = new JTextField();
     private JTextField op = new JTextField();
-    private JLabel calculationResult = new JLabel("");
+    private JTextField calculationResult = new JTextField();
 
     public MainWindow() {
         super("Basic calculator"); // Name for the window.
@@ -35,11 +39,19 @@ public class MainWindow extends JFrame {
         lhs.setPreferredSize(operandSize);
         rhs.setPreferredSize(operandSize);
         op.setPreferredSize(new Dimension(80, 80));
+        calculationResult.setPreferredSize(operandSize);
 
-        var equalSign = new JLabel("=");
+        var equalSign = new JButton("=");
         equalSign.setFont(f);
 
         calculationResult.setFont(f);
+        // calculationResult.setEnabled(false); // Because setEnable(false)
+        // makes foreground color permanently grey, we don't use this. As a
+        // replacement, setEditable is suitable.
+        calculationResult.setEditable(false);
+        calculationResult.setBackground(Color.WHITE); // setEditable makes
+        // background color grey (or transparent; I didn't notice).
+
 
         add(lhs);
         add(op);
@@ -47,48 +59,35 @@ public class MainWindow extends JFrame {
         add(equalSign);
         add(calculationResult);
 
-        KeyAdapter listener = new KeyAdapter() {
+        equalSign.addActionListener(new ActionListener() {
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 updateCalculationResult();
             }
-        };
+        });
+        // This may be better, because it don't require user to click on the
+        // button. As opposed to it, the following code automatically update the
+        // result when some key released.
 
-        lhs.addKeyListener(listener);
-        op.addKeyListener(listener);
-        rhs.addKeyListener(listener);
-    }
+        // KeyAdapter listener = new KeyAdapter() {
+        //     @Override
+        //     public void keyReleased(KeyEvent e) {
+        //         updateCalculationResult();
+        //     }
+        // };
 
-    private static class SignFormatException extends Exception {}
+        // lhs.addKeyListener(listener);
+        // op.addKeyListener(listener);
+        // rhs.addKeyListener(listener);
 
-    private char parseOperator(String s) throws SignFormatException {
-        if (s.length() != 1) {
-            throw new SignFormatException();
-        }
-
-        String available = "+-*/";
-        if (!available.contains(s)) {
-            throw new SignFormatException();
-        }
-        return s.charAt(0);
     }
 
     private int calculateResult() throws SignFormatException {
         int lhs = Integer.parseInt(this.lhs.getText());
-        char op = parseOperator(this.op.getText());
+        char op = Calculator.parseOperator(this.op.getText());
         int rhs = Integer.parseInt(this.rhs.getText());
 
-        if (op == '+') {
-            return lhs + rhs;
-        } else if (op == '-') {
-            return lhs - rhs;
-        } else if (op == '*') {
-            return lhs * rhs;
-        } else if (op == '/') {
-            return lhs / rhs;
-        }
-
-        return -1; // Unreachable
+        return Calculator.compute(lhs, rhs, op);
     }
 
     private void updateCalculationResult() {
@@ -99,6 +98,8 @@ public class MainWindow extends JFrame {
             calculationResult.setText("");
         } catch (NumberFormatException e) {
             calculationResult.setText("");
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 }
