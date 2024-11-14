@@ -17,7 +17,12 @@ public class MainWindow extends JFrame {
     private JTextField lhs = new JTextField();
     private JTextField rhs = new JTextField();
     private JTextField op = new JTextField();
+    private JButton equalSign = new JButton("="); // Sets default command as =
     private JTextField calculationResult = new JTextField();
+    private JLabel timesHint = new JLabel();
+    private JLabel errorHint = new JLabel();
+
+    int clickedTimes;
 
     public MainWindow() {
         super("Basic calculator"); // Name for the window.
@@ -28,20 +33,19 @@ public class MainWindow extends JFrame {
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Font f = lhs.getFont().deriveFont(32f);
+        Font f = lhs.getFont().deriveFont(28f);
 
         lhs.setFont(f);
         rhs.setFont(f);
         op.setFont(f);
 
-        Dimension operandSize = new Dimension(200, 100);
+        Dimension operandSize = new Dimension(200, 80);
 
         lhs.setPreferredSize(operandSize);
         rhs.setPreferredSize(operandSize);
         op.setPreferredSize(new Dimension(80, 80));
         calculationResult.setPreferredSize(operandSize);
 
-        var equalSign = new JButton("=");
         equalSign.setFont(f);
 
         calculationResult.setFont(f);
@@ -52,17 +56,29 @@ public class MainWindow extends JFrame {
         calculationResult.setBackground(Color.WHITE); // setEditable makes
         // background color grey (or transparent; I didn't notice).
 
+        timesHint.setFont(f);
+        errorHint.setFont(f);
 
         add(lhs);
         add(op);
         add(rhs);
         add(equalSign);
         add(calculationResult);
+        add(timesHint);
+        add(errorHint);
 
-        equalSign.addActionListener(new ActionListener() {
+        equalSign.addActionListener(new ActionListener() { // Anonymous class
             @Override
             public void actionPerformed(ActionEvent e) {
+                // `e.getActionCommand` returns the same as `e.getSource().getText`.
+                // Since we link this listener only to `equalSign`,
+                // e.getActionCommand always returns "=". We don't need to check
+                // e.getActionCommand().
+
+                ++clickedTimes;
+
                 updateCalculationResult();
+                updateText();
             }
         });
         // This may be better, because it don't require user to click on the
@@ -94,12 +110,21 @@ public class MainWindow extends JFrame {
         try {
             int result = calculateResult();
             calculationResult.setText(String.valueOf(result));
+            errorHint.setText(""); // Clears last error message.
         } catch (SignFormatException e) {
             calculationResult.setText("");
+            errorHint.setText("The operator is illegal.");
         } catch (NumberFormatException e) {
             calculationResult.setText("");
+            errorHint.setText("You should input number for the two operands.");
         } catch (Exception e) {
             System.out.println("Error: " + e);
+            errorHint.setText("Error: " + e);
         }
     }
+
+    private void updateText() {
+        timesHint.setText(calculationResult.getText() + " (Clicked " + clickedTimes + " times)");
+    }
+
 }
