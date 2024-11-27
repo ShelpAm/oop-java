@@ -7,8 +7,10 @@ fi
 
 # -d specifies output dir
 report=$(javac -Xlint:unchecked -d bin src/*.java \
-  ./src/DataStructureAndAlgorithm/*.java \
-  src/*/*.java 2>&1 | tee /dev/stderr)
+  src/DataStructureAndAlgorithm/*.java \
+  src/*/*.java \
+  src/week13/threads/*.java \
+  2>&1 | tee /dev/stderr)
 error=$(echo $report | grep error)
 if [[ -n $error ]] then
   echo Compilation failed. Running is stopped.
