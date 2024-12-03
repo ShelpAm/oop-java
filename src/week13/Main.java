@@ -142,15 +142,15 @@ public class Main {
 
         Thread[] threads = new Thread[carts.length];
 
-        synchronized (goods) {
-            int idx = 0;
-            for (var cart : carts) {
-                Thread t = new Thread(() -> {
+        int idx = 0;
+        for (var cart : carts) {
+            Thread t = new Thread(() -> {
+                synchronized (goods) {
                     cart.settle();
-                });
-                t.start();
-                threads[idx++] = t;
-            }
+                }
+            });
+            t.start();
+            threads[idx++] = t;
         }
 
         try {
