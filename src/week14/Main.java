@@ -3,6 +3,7 @@ package shelpam.week14;
 import java.util.ArrayList;
 import java.util.Random;
 import shelpam.week13.Timer;
+import shelpam.week14.FiniteStateMachine.DoesntExistException;
 
 // Notes about `Thread.join`
 
@@ -43,9 +44,30 @@ import shelpam.week13.Timer;
 
 public class Main {
     private static void printing() {
-        String[] doca = {"/* C code */", "#include <stdio.h>", "int main()", "{", "    printf(\"I love %s.\", \"zyx\");", "}", ""};
-        String[] docb = {"# Python code", "loved = 'zyx'", "print(f\"I love {loved}.\"", ""};
-        String[] docc = {"// Java code", "public class Main { public static void main(String[] args) { System.out.println(\"I love zyx.\"); } }", ""};
+        String[] doca = {
+                "/* C code */",
+                "#include <stdio.h>",
+                "int main()", "{",
+                "    printf(\"I love %s.\", \"zyx\");",
+                "}",
+                ""
+        };
+        String[] docb = {
+                "# Python code",
+                "loved = 'zyx'",
+                "print(f\"I love {loved}.\"",
+                ""
+        };
+        String[] docc = {
+                "// Java code",
+                "public class Main {",
+                "    public static void main(String[] args)",
+                "    {",
+                "        System.out.println(\"I love zyx.\");",
+                "    }",
+                "}",
+                ""
+        };
 
         var tasks = new ArrayList<PrintingTask>();
         tasks.add(new PrintingTask("A", doca));
@@ -56,7 +78,7 @@ public class Main {
         work.start();
     }
 
-    private static void notice() {
+    public static void notice() {
         NoticeBoard noticeBoard = new NoticeBoard();
 
         Runnable publish = () -> {
@@ -81,11 +103,7 @@ public class Main {
         noticeBoard.printAll();
     }
 
-    private static void cowork() {
-        String s1 = "13579";
-        String s2 = "24680";
-        String s3 = "abcde";
-
+    public static void cowork(String s1, String s2, String s3) throws DoesntExistException {
         State[] states = { new State(0, 1, s1), new State(1, 2, s3), new State(2, 0, s2) };
 
         var fsm = new FiniteStateMachine(states, 0);
@@ -104,7 +122,10 @@ public class Main {
         timer.measure("Single-threaded", () -> {
             Accumulator acc = new Accumulator(data, 0, data.length);
             acc.start();
-            try { acc.join(); } catch (InterruptedException e) {}
+            try {
+                acc.join();
+            } catch (InterruptedException e) {
+            }
             int r1 = acc.getResult();
             System.out.println("Single-threaded result = " + r1);
         });
@@ -130,12 +151,12 @@ public class Main {
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         printing();
         System.out.println();
         notice();
         System.out.println();
-        cowork();
+        cowork("13579", "24680", "abcde");
         System.out.println();
         calculateSum();
         System.out.println();

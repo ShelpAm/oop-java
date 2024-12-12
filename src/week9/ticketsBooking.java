@@ -56,7 +56,7 @@ class WetMarketApplet {
   }
 }
 
-public class Main {
+public class ticketsBooking {
   public static void main(String[] args) {
     WetMarketApplet applet = new WetMarketApplet();
 

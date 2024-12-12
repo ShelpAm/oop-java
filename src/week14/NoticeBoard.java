@@ -13,6 +13,7 @@ public class NoticeBoard {
     }
 
     public void printAll() {
+        System.out.println("NoticeBoard:");
         for (int i = 0; i != size; ++i) {
             System.out.println(notices[i]);
         }
