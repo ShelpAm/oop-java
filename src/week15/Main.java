@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
 class Main {
@@ -14,6 +15,7 @@ class Main {
         shelpam.week14.Main.notice();
         copyFile("bin/BanJi.class", "bin/dest.java.bin", "char-wise");
         shelpam.week14.Main.cowork("135", "2468", "abcde");
+        doGrading();
     }
 
     private static void ticketsBooking() throws Exception {
@@ -59,6 +61,29 @@ class Main {
                     }
                 }
             }
+        }
+    }
+
+    // Note the difference between marking and grading here.
+    private static void doGrading() throws InterruptedException {
+        Problem[] problems = {
+                new Problem(30), new Problem(10), new Problem(10),
+                new Problem(30), new Problem(20)
+        };
+
+        Grader[] graders = new Grader[problems.length];
+        for (int i = 0; i != graders.length; ++i) {
+            graders[i] = new Grader(10, problems[i], 0.7);
+            graders[i].start();
+        }
+
+        for (Grader grader : graders) {
+            grader.join();
+        }
+
+        System.out.println("Scores of each problems. Each line is a collection of students' score.");
+        for (Grader grader : graders) {
+            System.out.println(Arrays.toString(grader.scores));
         }
     }
 }
