@@ -19,7 +19,7 @@ public class Grader extends Thread {
 
     private int grade(Problem p) {
         Random random = new Random();
-        boolean shouldPass = random.nextDouble(1) >= passRate;
+        boolean shouldPass = random.nextDouble(1) <= passRate;
         int base = (int) Math.ceil(problem.marks * passRate);
         if (shouldPass) {
             int bonus = problem.marks - base;

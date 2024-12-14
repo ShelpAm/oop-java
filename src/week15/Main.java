@@ -66,6 +66,9 @@ class Main {
 
     // Note the difference between marking and grading here.
     private static void doGrading() throws InterruptedException {
+        final int numberOfStudents = 10;
+        int[] scores = new int[numberOfStudents];
+
         Problem[] problems = {
                 new Problem(30), new Problem(10), new Problem(10),
                 new Problem(30), new Problem(20)
@@ -73,7 +76,7 @@ class Main {
 
         Grader[] graders = new Grader[problems.length];
         for (int i = 0; i != graders.length; ++i) {
-            graders[i] = new Grader(10, problems[i], 0.7);
+            graders[i] = new Grader(numberOfStudents, problems[i], 0.7);
             graders[i].start();
         }
 
@@ -81,9 +84,12 @@ class Main {
             grader.join();
         }
 
-        System.out.println("Scores of each problems. Each line is a collection of students' score.");
         for (Grader grader : graders) {
-            System.out.println(Arrays.toString(grader.scores));
+            for (int i = 0; i != grader.scores.length; ++i) {
+                scores[i] += grader.scores[i];
+            }
         }
+        System.out.println("Scores of students:");
+        System.out.println(Arrays.toString(scores));
     }
 }

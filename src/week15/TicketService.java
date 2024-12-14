@@ -15,11 +15,16 @@ public class TicketService {
     // Assume count is between 1 to 5.
     public int[] book(int count) {
         int[] thisBooked = new int[count];
-        for (int i = 0; i != count; ++i) {
-            synchronized (mutex) {
-                thisBooked[i] = tickets[soldOuts++];
-            }
+
+        // Prefetches the tickets.
+        synchronized (mutex) {
+            soldOuts += count;
         }
+
+        for (int i = soldOuts - count, j = 0; i != soldOuts; ++i) {
+            thisBooked[j++] = i;
+        }
+
         return thisBooked;
     }
 }
