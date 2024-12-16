@@ -40,25 +40,16 @@ class Main {
     private static void copyFile(String src, String dest, String method) throws FileNotFoundException, IOException {
         try (var br = new BufferedReader(new FileReader(src));
                 var bw = new BufferedWriter(new FileWriter(dest))) {
-            boolean eof = false;
             if (method.equals("line-wise")) {
-                while (!eof) {
-                    String line = br.readLine();
-                    if (line == null) {
-                        eof = true;
-                    } else {
-                        bw.write(line);
-                        bw.newLine();
-                    }
+                String line;
+                while ((line = br.readLine()) != null) {
+                    bw.write(line);
+                    bw.newLine();
                 }
             } else if (method.equals("char-wise")) {
-                while (!eof) {
-                    int ch = br.read();
-                    if (ch == -1) {
-                        eof = true;
-                    } else {
-                        bw.write(ch);
-                    }
+                int ch;
+                while ((ch = br.read()) != -1) {
+                    bw.write(ch);
                 }
             }
         }
