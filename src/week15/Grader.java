@@ -6,6 +6,7 @@ import java.util.Random;
  * Grader
  */
 public class Grader extends Thread {
+    private static final double passMarkPercentage = 0.6;
     private int numberOfStudents;
     private Problem problem;
     private double passRate;
@@ -20,7 +21,7 @@ public class Grader extends Thread {
     private int grade(Problem p) {
         Random random = new Random();
         boolean shouldPass = random.nextDouble(1) <= passRate;
-        int base = (int) Math.ceil(problem.marks * passRate);
+        int base = (int) Math.ceil(problem.marks * passMarkPercentage);
         if (shouldPass) {
             int bonus = problem.marks - base;
             return base + random.nextInt(bonus + 1);
