@@ -1,5 +1,10 @@
 # OOP-Java
 
+## Prerequisites
+
+If you want to run the project, you should first have java-10 installed in your
+machine.
+
 ## Tests
 
 To test week4, simply run: `./tests/week4.sh`.
