@@ -2,7 +2,7 @@ package shelpam.week14;
 
 import java.util.ArrayList;
 import java.util.Random;
-import shelpam.week13.Timer;
+import shelpam.week13.Stopwatch;
 import shelpam.week14.FiniteStateMachine.DoesntExistException;
 
 // Notes about `Thread.join`
@@ -111,7 +111,7 @@ public class Main {
     }
 
     private static void calculateSum() {
-        Timer timer = new Timer();
+        Stopwatch timer = new Stopwatch();
 
         int[] data = new int[12345];
         for (int i = 0; i != data.length; ++i) {

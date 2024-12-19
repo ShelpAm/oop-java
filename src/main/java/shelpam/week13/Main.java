@@ -52,13 +52,13 @@ public class Main {
     }
 
     private static void task2() {
-        Timer timer = new Timer();
+        Stopwatch timer = new Stopwatch();
 
         var task = new Runnable() {
             public void run() {
                 int testTimes = 1000000;
                 Random r = new Random();
-                for (int i = 0 ; i != testTimes / 4; ++i) {
+                for (int i = 0; i != testTimes / 4; ++i) {
                     r.nextInt();
                 }
             }
@@ -72,7 +72,7 @@ public class Main {
             }
             for (int i = 0; i != 4; ++i) {
                 try {
-                threads[i].join();
+                    threads[i].join();
                 } catch (InterruptedException e) {
                     System.out.println(e);
                 }
@@ -128,14 +128,14 @@ public class Main {
         }
 
         System.out.println("account.getBalance() is " + account.getBalance());
-        assert(account.getBalance() == 200);
+        assert (account.getBalance() == 200);
     }
 
     private static void task4() {
         Goods goods = new Goods();
         ShoppingCart[] carts = {
-            new ShoppingCart("A", goods), new ShoppingCart("B", goods),
-            new ShoppingCart("C", goods), new ShoppingCart("D", goods)
+                new ShoppingCart("A", goods), new ShoppingCart("B", goods),
+                new ShoppingCart("C", goods), new ShoppingCart("D", goods)
         };
 
         System.out.println("Before seckill, there're " + goods.getNumber() + " goods.");
@@ -162,7 +162,7 @@ public class Main {
         }
 
         System.out.println("After the seckill, " + goods.getNumber() +
-            " goods left.");
+                " goods left.");
     }
 
     public static void main(String[] args) {

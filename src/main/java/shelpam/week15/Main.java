@@ -1,19 +1,15 @@
 package shelpam.week15;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
+
+import shelpam.week15.FileSystem.CopyMode;
 
 class Main {
     public static void main(String[] args) throws Exception {
         ticketsBooking();
         shelpam.week14.Main.notice();
-        copyFile("bin/BanJi.class", "bin/dest.java.bin", "char-wise");
+        FileSystem.copyFile("bin/BanJi.class", "bin/dest.java.bin", CopyMode.CHAR_WISE);
         shelpam.week14.Main.cowork("135", "2468", "abcde");
         doGrading();
     }
@@ -34,24 +30,6 @@ class Main {
         }
         for (var t : threads) {
             t.join();
-        }
-    }
-
-    private static void copyFile(String src, String dest, String method) throws FileNotFoundException, IOException {
-        try (var br = new BufferedReader(new FileReader(src));
-                var bw = new BufferedWriter(new FileWriter(dest))) {
-            if (method.equals("line-wise")) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    bw.write(line);
-                    bw.newLine();
-                }
-            } else if (method.equals("char-wise")) {
-                int ch;
-                while ((ch = br.read()) != -1) {
-                    bw.write(ch);
-                }
-            }
         }
     }
 
