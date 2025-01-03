@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-JAVA='java-23'
+JAVA='java'
 JAVAC='javac'
 
 PREFIX_DIR='./src/main/java/'
